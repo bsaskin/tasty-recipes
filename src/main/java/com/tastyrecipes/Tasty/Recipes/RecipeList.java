@@ -1,6 +1,7 @@
 package com.tastyrecipes.Tasty.Recipes;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -8,19 +9,18 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
 @Entity
-public class Ingredient {
+public class RecipeList {
     private @Id
     @GeneratedValue
     Long id;
-    private String title;
-    private String unit;
+    String title;
+    private List<Recipe> recipeList;
 
-    public Ingredient() {
+    public RecipeList() {
     }
 
-    public Ingredient(String title, String unit) {
+    public RecipeList(String title) {
         this.title = title;
-        this.unit = unit;
     }
 
     public Long getId() {
@@ -39,24 +39,28 @@ public class Ingredient {
         this.title = title;
     }
 
-    public String getUnit() {
-        return unit;
+    public List<Recipe> getRecipeList() {
+        return recipeList;
     }
 
-    public void setUnit(String unit) {
-        this.unit = unit;
+    public void setRecipeList(List<Recipe> recipeList) {
+        this.recipeList = recipeList;
+    }
+
+    public void addRecipe(Recipe recipe){
+        this.recipeList.add(recipe);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o)
             return true;
-        if (!(o instanceof Ingredient))
+        if (!(o instanceof RecipeList))
             return false;
-        Ingredient ingredient = (Ingredient) o;
-        return Objects.equals(this.id, ingredient.id)
-                && Objects.equals(this.title, ingredient.title)
-                && Objects.equals(this.unit, ingredient.unit);
+        RecipeList recipeList = (RecipeList) o;
+        return Objects.equals(this.id, recipeList.id)
+                && Objects.equals(this.title, recipeList.title)
+                && Objects.equals(this.recipeList, recipeList.recipeList);
     }
 
     @Override
@@ -64,16 +68,16 @@ public class Ingredient {
         return Objects.hash(
                 this.id,
                 this.title,
-                this.unit
+                this.recipeList
         );
     }
 
     @Override
     public String toString() {
-        return "Ingredient{"
+        return "RecipeList{"
                 + "id=" + this.id +
                 ", title='" + this.title + '\'' +
-                ", unit='" + this.unit + '\'' +
+                ", recipes='" + this.recipeList.toString() + '\'' +
                 '}';
     }
 }
